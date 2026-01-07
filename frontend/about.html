@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Finfluencer Tracker</title>
+    <meta name="description" content="How we track and verify predictions from Indian finance YouTubers">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="app">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">
+                    <span class="logo-icon">📊</span>
+                    <span class="logo-text">Finfluencer<span class="logo-highlight">Tracker</span></span>
+                </a>
+                <div class="nav-links">
+                    <a href="/" class="nav-link">Leaderboard</a>
+                    <a href="/about" class="nav-link active">About</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content about-page">
+            <header class="about-hero">
+                <h1 class="about-title">How It <span class="gradient-text">Works</span></h1>
+                <p class="about-subtitle">
+                    We bring transparency to financial content by tracking predictions and comparing them against real
+                    market outcomes.
+                </p>
+            </header>
+
+            <!-- Methodology Section -->
+            <section class="about-section">
+                <h2>📺 Data Collection</h2>
+                <div class="about-content">
+                    <p>
+                        We monitor YouTube channels of popular Indian finance content creators. Our system automatically
+                        <strong>extracts transcripts</strong> from videos that contain market predictions, stock picks,
+                        or economic forecasts.
+                    </p>
+                    <div class="about-highlight-box">
+                        <span class="highlight-icon">🎯</span>
+                        <div>
+                            <strong>What counts as a prediction?</strong>
+                            <p>Any statement about future market direction, specific price targets, timing of events, or
+                                stock recommendations with expected outcomes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>🤖 AI-Powered Extraction</h2>
+                <div class="about-content">
+                    <p>
+                        Using Google's Gemini AI, we analyze video transcripts to identify and structure prediction
+                        statements.
+                        For each prediction, we extract:
+                    </p>
+                    <ul class="about-list">
+                        <li><strong>Statement</strong> — The exact claim made</li>
+                        <li><strong>Asset</strong> — What's being discussed (NIFTY, specific stocks, Gold, etc.)</li>
+                        <li><strong>Direction</strong> — Bullish, bearish, or neutral outlook</li>
+                        <li><strong>Target</strong> — Any specific price or return targets</li>
+                        <li><strong>Timeframe</strong> — When the prediction should materialize</li>
+                        <li><strong>Timestamp</strong> — Exact moment in the video for verification</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>📈 Market Verification</h2>
+                <div class="about-content">
+                    <p>
+                        Once a prediction's timeframe has passed, we verify it against actual market data from
+                        <strong>NSE, BSE, and other trusted sources</strong>. Our verification considers:
+                    </p>
+                    <div class="scoring-grid">
+                        <div class="scoring-card">
+                            <div class="scoring-weight">40%</div>
+                            <div class="scoring-label">Direction Accuracy</div>
+                            <p>Was the bullish/bearish call correct?</p>
+                        </div>
+                        <div class="scoring-card">
+                            <div class="scoring-weight">40%</div>
+                            <div class="scoring-label">Target Accuracy</div>
+                            <p>How close were price targets? (±10% tolerance)</p>
+                        </div>
+                        <div class="scoring-card">
+                            <div class="scoring-weight">20%</div>
+                            <div class="scoring-label">Timing Accuracy</div>
+                            <p>Did it happen within the stated timeframe?</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>⚠️ Important Disclaimers</h2>
+                <div class="about-content disclaimer-content">
+                    <div class="disclaimer-item">
+                        <strong>Not Financial Advice</strong>
+                        <p>This tool is for informational and educational purposes only. Past accuracy does not predict
+                            future performance.</p>
+                    </div>
+                    <div class="disclaimer-item">
+                        <strong>AI Limitations</strong>
+                        <p>Our AI extraction may occasionally misinterpret context or miss nuance. We continuously
+                            improve accuracy.</p>
+                    </div>
+                    <div class="disclaimer-item">
+                        <strong>Data Sources</strong>
+                        <p>We rely on publicly available YouTube videos and official market data. Gaps may exist.</p>
+                    </div>
+                    <div class="disclaimer-item">
+                        <strong>Fair Assessment</strong>
+                        <p>We aim to be objective. Predictions are evaluated on their stated terms, not hindsight
+                            interpretations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>🙋 Suggest a Creator</h2>
+                <div class="about-content">
+                    <p>
+                        Know a finance YouTuber who should be tracked? We're always looking to expand our coverage.
+                    </p>
+                    <div class="suggest-form" id="suggest-form">
+                        <input type="text" id="suggest-channel" placeholder="YouTube channel URL or name"
+                            class="suggest-input">
+                        <button class="suggest-btn" onclick="submitSuggestion()">Suggest Creator</button>
+                    </div>
+                    <p id="suggest-message" class="suggest-message"></p>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>📊 Current Coverage</h2>
+                <div class="about-content">
+                    <div class="creators-grid" id="creators-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Built with transparency in mind. Open-source and community-driven.
+                </p>
+                <p class="footer-disclaimer">
+                    This is not financial advice. Past accuracy does not guarantee future performance.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+    <script>
+        // Load creators on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('creators-grid');
+            try {
+                const data = await fetch('/api/creators').then(r => r.json());
+                if (data.creators && data.creators.length) {
+                    grid.innerHTML = data.creators.map(c => `
+                        <a href="/creator/${c.slug}" class="creator-mini-card">
+                            <div class="creator-mini-avatar">${c.name.split(' ').map(n => n[0]).join('').substring(0, 2)}</div>
+                            <div>
+                                <div class="creator-mini-name">${c.name}</div>
+                                <div class="creator-mini-meta">${c.total_predictions || 0} predictions</div>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+            } catch (e) {
+                grid.innerHTML = '<p>Loading...</p>';
+            }
+        });
+
+        function submitSuggestion() {
+            const input = document.getElementById('suggest-channel');
+            const msg = document.getElementById('suggest-message');
+            if (input.value.trim()) {
+                msg.textContent = '✓ Thanks! Your suggestion has been recorded.';
+                msg.className = 'suggest-message success';
+                input.value = '';
+                // In production, this would POST to an API
+            } else {
+                msg.textContent = 'Please enter a channel URL or name.';
+                msg.className = 'suggest-message error';
+            }
+        }
+    </script>
+</body>
+
+</html>

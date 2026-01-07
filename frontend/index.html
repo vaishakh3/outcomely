@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finfluencer Tracker - Prediction Accuracy Leaderboard</title>
+    <meta name="description"
+        content="Track and verify predictions made by Indian finance YouTubers. See who's actually accurate.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta property="og:title" content="Finfluencer Tracker">
+    <meta property="og:description" content="Track and verify predictions from Indian finance YouTubers">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">
+                    <span class="logo-icon">📊</span>
+                    <span class="logo-text">Finfluencer<span class="logo-highlight">Tracker</span></span>
+                </a>
+                <div class="nav-links">
+                    <a href="/" class="nav-link active">Leaderboard</a>
+                    <a href="/about" class="nav-link">About</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">🎯 Accuracy Matters</div>
+                <h1 class="hero-title">
+                    Who's <span class="gradient-text">Actually Right?</span>
+                </h1>
+                <p class="hero-subtitle">
+                    We track predictions from top Indian finance YouTubers and verify them against real market outcomes.
+                    No more blind faith—see the data.
+                </p>
+            </div>
+            <div class="hero-glow"></div>
+        </header>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-value" id="stat-creators">—</span>
+                    <span class="stat-label">Creators Tracked</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value" id="stat-predictions">—</span>
+                    <span class="stat-label">Predictions Analyzed</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value" id="stat-verified">—</span>
+                    <span class="stat-label">Verified</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value" id="stat-avg-accuracy">—</span>
+                    <span class="stat-label">Avg Accuracy</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard -->
+        <main class="main-content">
+            <section class="leaderboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">🏆 Accuracy Leaderboard</h2>
+                    <p class="section-subtitle">Ranked by prediction accuracy over time</p>
+                </div>
+
+                <div class="leaderboard-container">
+                    <table class="leaderboard-table" id="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th class="col-rank">Rank</th>
+                                <th class="col-creator">Creator</th>
+                                <th class="col-accuracy">Accuracy</th>
+                                <th class="col-predictions">Predictions</th>
+                                <th class="col-videos">Videos</th>
+                                <th class="col-action"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <tr class="loading-row">
+                                <td colspan="6">
+                                    <div class="loading-spinner"></div>
+                                    <span>Loading leaderboard...</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="how-it-works" id="about">
+                <h2 class="section-title">How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">📺</div>
+                        <h3>Collect Videos</h3>
+                        <p>We scan YouTube channels for videos containing market predictions and analysis.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">🔍</div>
+                        <h3>Extract Predictions</h3>
+                        <p>AI analyzes transcripts to identify specific, verifiable predictions with timestamps.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">📈</div>
+                        <h3>Verify With Data</h3>
+                        <p>We compare predictions against actual market data from NSE/BSE and other sources.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">🎯</div>
+                        <h3>Calculate Score</h3>
+                        <p>Each prediction gets an accuracy score based on direction, target, and timing.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Built with transparency in mind. Data sourced from public YouTube videos and market data.
+                </p>
+                <p class="footer-disclaimer">
+                    This is not financial advice. Past accuracy does not guarantee future performance.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Details - Finfluencer Tracker</title>
+    <meta name="description" content="Detailed prediction accuracy analysis for finance YouTuber">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">
+                    <span class="logo-icon">📊</span>
+                    <span class="logo-text">Finfluencer<span class="logo-highlight">Tracker</span></span>
+                </a>
+                <div class="nav-links">
+                    <a href="/" class="nav-link">← Back to Leaderboard</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Creator Header -->
+        <header class="creator-header" id="creator-header">
+            <div class="creator-header-content">
+                <div class="creator-info">
+                    <div class="creator-rank" id="creator-rank">#—</div>
+                    <div class="creator-details">
+                        <h1 class="creator-name" id="creator-name">Loading...</h1>
+                        <p class="creator-description" id="creator-description"></p>
+                        <a href="#" class="creator-channel-link" id="creator-channel-link" target="_blank">
+                            View YouTube Channel →
+                        </a>
+                    </div>
+                </div>
+                <div class="creator-score-card">
+                    <div class="score-circle" id="score-circle">
+                        <span class="score-value" id="score-value">—</span>
+                        <span class="score-label">Accuracy</span>
+                    </div>
+                </div>
+            </div>
+            <div class="creator-stats">
+                <div class="creator-stat">
+                    <span class="creator-stat-value" id="stat-total-predictions">—</span>
+                    <span class="creator-stat-label">Predictions</span>
+                </div>
+                <div class="creator-stat">
+                    <span class="creator-stat-value" id="stat-verified-count">—</span>
+                    <span class="creator-stat-label">Verified</span>
+                </div>
+                <div class="creator-stat">
+                    <span class="creator-stat-value" id="stat-video-count">—</span>
+                    <span class="creator-stat-label">Videos</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Predictions List -->
+        <main class="main-content">
+            <section class="predictions-section">
+                <div class="section-header">
+                    <h2 class="section-title">Predictions Timeline</h2>
+                    <div class="filter-controls">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="verified">Verified Only</button>
+                        <button class="filter-btn" data-filter="bullish">Bullish</button>
+                        <button class="filter-btn" data-filter="bearish">Bearish</button>
+                        <button class="export-btn" id="export-btn" onclick="exportPredictions()">📥 Export CSV</button>
+                    </div>
+                </div>
+
+                <div class="predictions-list" id="predictions-list">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <span>Loading predictions...</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Built with transparency in mind. Data sourced from public YouTube videos and market data.
+                </p>
+                <p class="footer-disclaimer">
+                    This is not financial advice. Past accuracy does not guarantee future performance.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+    <script>
+        // Load creator data on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const slug = window.location.pathname.split('/').pop();
+            if (slug && slug !== 'creator.html') {
+                loadCreatorData(slug);
+            }
+        });
+    </script>
+</body>
+
+</html>
