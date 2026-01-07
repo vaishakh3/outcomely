@@ -383,9 +383,18 @@ class Database:
         for creator_row in creators:
             creator_id = creator_row['id']
             
-            # Calculate average score from verifications
+            # Calculate total predictions (all)
             cursor.execute("""
-                SELECT COUNT(*) as total, AVG(ver.overall_score) as avg_score
+                SELECT COUNT(*) as total
+                FROM predictions p
+                JOIN videos v ON p.video_id = v.id
+                WHERE v.creator_id = ?
+            """, (creator_id,))
+            total = cursor.fetchone()['total'] or 0
+            
+            # Calculate average score from verifications only
+            cursor.execute("""
+                SELECT AVG(ver.overall_score) as avg_score
                 FROM predictions p
                 JOIN videos v ON p.video_id = v.id
                 JOIN verifications ver ON p.id = ver.prediction_id
@@ -393,7 +402,6 @@ class Database:
             """, (creator_id,))
             
             result = cursor.fetchone()
-            total = result['total'] or 0
             avg_score = result['avg_score'] or 0.0
             
             cursor.execute("""

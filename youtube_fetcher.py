@@ -8,6 +8,7 @@ from datetime import datetime
 from typing import Optional
 import subprocess
 import json
+import sys
 
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._errors import (
@@ -44,8 +45,10 @@ def get_channel_videos(channel_url: str, limit: int = 50, channel_id: str = None
     
     for url in urls_to_try:
         try:
+            # Use sys.executable to run yt-dlp as a module
             cmd = [
-                "yt-dlp",
+                sys.executable,
+                "-m", "yt_dlp",
                 "--no-download",
                 "--flat-playlist",
                 "--print", '{"id": "%(id)s", "title": "%(title)s", "upload_date": "%(upload_date)s"}',
@@ -56,6 +59,8 @@ def get_channel_videos(channel_url: str, limit: int = 50, channel_id: str = None
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
             
             if result.returncode != 0:
+                # Debug info
+                # print(f"Debug: yt-dlp failed for {url} with: {result.stderr}")
                 continue  # Try next URL format
             
             videos = []
@@ -64,10 +69,16 @@ def get_channel_videos(channel_url: str, limit: int = 50, channel_id: str = None
                     try:
                         video = json.loads(line)
                         if video.get('id') and video.get('title'):
+                            # Convert YYYYMMDD to YYYY-MM-DD
+                            raw_date = video.get('upload_date', '')
+                            formatted_date = ""
+                            if raw_date and len(raw_date) == 8:
+                                formatted_date = f"{raw_date[:4]}-{raw_date[4:6]}-{raw_date[6:]}"
+
                             videos.append({
                                 'video_id': video['id'],
                                 'title': video['title'],
-                                'upload_date': video.get('upload_date', ''),
+                                'upload_date': formatted_date,
                                 'url': f"https://www.youtube.com/watch?v={video['id']}"
                             })
                     except json.JSONDecodeError:
@@ -106,7 +117,7 @@ def filter_prediction_videos(videos: list[dict]) -> list[dict]:
             continue
         
         # Also include videos with year mentions (often contain predictions)
-        year_pattern = r'20[2-3][0-9]'
+        year_pattern = r'202[1-5]'
         if re.search(year_pattern, video['title']):
             filtered.append(video)
     
@@ -136,15 +147,20 @@ def filter_by_date_range(videos: list[dict],
         upload_date = video.get('upload_date', '')
         
         # Include videos without valid dates (we'll get date from transcript later)
-        if not upload_date or upload_date == 'NA' or len(upload_date) != 8:
+        if not upload_date or upload_date == 'NA':
             video['publish_date'] = ''  # Unknown date
             filtered.append(video)
             continue
             
         try:
-            video_date = datetime.strptime(upload_date, "%Y%m%d")
+            # Expecting YYYY-MM-DD now as it was formatted in get_channel_videos
+            if '-' in upload_date:
+                video_date = datetime.strptime(upload_date, "%Y-%m-%d")
+            else:
+                # Fallback for YYYYMMDD
+                video_date = datetime.strptime(upload_date, "%Y%m%d")
+                
             if start <= video_date <= end:
-                # Convert to standard format
                 video['publish_date'] = video_date.strftime("%Y-%m-%d")
                 filtered.append(video)
         except ValueError:
@@ -166,34 +182,27 @@ def get_transcript(video_id: str) -> Optional[list[dict]]:
         List of transcript segments with text and timestamps, or None if unavailable
     """
     try:
-        # Create API instance (required for v1.2.x)
         api = YouTubeTranscriptApi()
+        # list() returns a TranscriptList object
+        transcript_list = api.list(video_id)
         
-        # Try with Hindi and English language preferences
+        # Try to find a manually created transcript in Hindi or English
         try:
-            transcript = api.fetch(video_id, languages=['hi', 'en', 'en-IN'])
-            return [{'text': item.text, 'start': item.start, 'duration': item.duration} for item in transcript]
+            transcript = transcript_list.find_transcript(['hi', 'en', 'en-IN'])
         except Exception:
-            pass
+            # Fallback to any available transcript (generated or otherwise)
+            try:
+                transcript = transcript_list.find_generated_transcript(['hi', 'en', 'en-IN'])
+            except Exception:
+                transcript = next(iter(transcript_list))
         
-        # Try with just English
-        try:
-            transcript = api.fetch(video_id, languages=['en'])
-            return [{'text': item.text, 'start': item.start, 'duration': item.duration} for item in transcript]
-        except Exception:
-            pass
+        data = transcript.fetch()
+        return [{'text': item['text'], 'start': item['start'], 'duration': item['duration']} for item in data]
         
-        # Try to list available transcripts and fetch any
-        try:
-            transcript_list = api.list(video_id)
-            if transcript_list:
-                # Get the first available transcript
-                first_lang = transcript_list[0].language_code
-                transcript = api.fetch(video_id, languages=[first_lang])
-                return [{'text': item.text, 'start': item.start, 'duration': item.duration} for item in transcript]
-        except Exception:
-            pass
-        
+    except (TranscriptsDisabled, VideoUnavailable):
+        return None
+    except Exception as e:
+        # print(f"Error fetching transcript for {video_id}: {e}")
         return None
         
     except TranscriptsDisabled:

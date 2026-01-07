@@ -18,7 +18,7 @@ DATABASE_PATH = os.getenv("DATABASE_PATH", "./data/predictions.db")
 
 # Date Range Configuration
 START_DATE = os.getenv("START_DATE", "2022-01-01")
-END_DATE = os.getenv("END_DATE", "2025-12-31")
+END_DATE = os.getenv("END_DATE", "2024-06-30")
 
 # Video filtering keywords (used to identify prediction-related videos)
 PREDICTION_KEYWORDS = [
@@ -132,8 +132,9 @@ TARGET_TOLERANCE = 0.10  # 10% tolerance for price targets
 TIMING_TOLERANCE_DAYS = 90  # 3 months tolerance for timing
 
 
-# Gemini API configuration
-GEMINI_MODEL = "models/gemini-2.5-flash-lite"
+# Gemini Configuration
+GEMINI_MODEL = "models/gemini-2.5-flash"
+GEMINI_TEMP = 0.1
 GEMINI_RATE_LIMIT_RPM = 15  # Requests per minute (for flash-lite)
 GEMINI_RATE_LIMIT_RPD = 1000  # Requests per day (for flash-lite)
 
