@@ -1525,9 +1525,288 @@ body {
    Responsive Improvements
    =================================== */
 
-@media (max-width: 768px) {
-    .about-title {
+/* Tablet */
+@media (max-width: 992px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 42px;
+    }
+
+    .stat-value {
         font-size: 36px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    :root {
+        --navbar-height: 60px;
+        --section-padding: 40px;
+    }
+
+    /* Navigation */
+    .navbar {
+        padding: 0 16px;
+    }
+
+    .nav-brand {
+        font-size: 18px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-link {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 25px 0 40px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+        letter-spacing: -1px;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    /* Stats */
+    .stats-container {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .stat {
+        min-width: 100px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .stat-divider {
+        display: none;
+    }
+
+    /* Leaderboard Table - Card Layout on Mobile */
+    .leaderboard-table {
+        display: block;
+    }
+
+    .leaderboard-table thead {
+        display: none;
+    }
+
+    .leaderboard-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .leaderboard-table tr {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        align-items: center;
+    }
+
+    .leaderboard-table tr:hover {
+        background: var(--bg-tertiary);
+    }
+
+    .leaderboard-table td {
+        padding: 0;
+        border: none;
+    }
+
+    /* Rank */
+    .leaderboard-table td:nth-child(1) {
+        order: 1;
+        width: 40px;
+    }
+
+    /* Creator Info */
+    .leaderboard-table td:nth-child(2) {
+        order: 2;
+        flex: 1;
+        min-width: 150px;
+    }
+
+    /* Accuracy */
+    .leaderboard-table td:nth-child(3) {
+        order: 3;
+        text-align: right;
+    }
+
+    /* Predictions count */
+    .leaderboard-table td:nth-child(4) {
+        order: 5;
+        width: 50%;
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+
+    .leaderboard-table td:nth-child(4)::before {
+        content: 'Predictions: ';
+        color: var(--text-muted);
+    }
+
+    /* Videos count */
+    .leaderboard-table td:nth-child(5) {
+        order: 6;
+        width: 50%;
+        font-size: 13px;
+        color: var(--text-secondary);
+        text-align: right;
+    }
+
+    .leaderboard-table td:nth-child(5)::before {
+        content: 'Videos: ';
+        color: var(--text-muted);
+    }
+
+    /* Action button */
+    .leaderboard-table td:nth-child(6) {
+        order: 4;
+    }
+
+    .creator-info-cell {
+        gap: 10px;
+    }
+
+    .creator-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .creator-name {
+        font-size: 15px;
+    }
+
+    .creator-desc {
+        font-size: 11px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .accuracy-display {
+        font-size: 18px;
+    }
+
+    .view-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    /* Creator Page */
+    .creator-header {
+        padding: 24px 0;
+    }
+
+    .creator-header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .creator-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .creator-avatar.large {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+    }
+
+    .creator-details h1 {
+        font-size: 24px;
+    }
+
+    .creator-stats {
+        justify-content: center;
+        gap: 24px;
+    }
+
+    .creator-stat-value {
+        font-size: 28px;
+    }
+
+    /* Predictions Section */
+    .predictions-section .section-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .filter-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .prediction-card {
+        padding: 16px;
+    }
+
+    .prediction-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .prediction-tags {
+        flex-wrap: wrap;
+    }
+
+    .prediction-statement {
+        font-size: 15px;
+    }
+
+    .prediction-footer {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    /* About Page */
+    .about-title {
+        font-size: 32px;
+    }
+
+    .about-subtitle {
+        font-size: 15px;
+    }
+
+    .about-content {
+        padding: 20px;
     }
 
     .scoring-grid {
@@ -1538,13 +1817,65 @@ body {
         flex-direction: column;
     }
 
+    /* Search */
     .search-bar {
         flex-direction: column;
         max-width: none;
     }
 
+    /* Error Page */
     .error-code {
         font-size: 80px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 30px 0;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 24px;
+    }
+
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .leaderboard-table tr {
+        padding: 14px;
+    }
+
+    .accuracy-display {
+        font-size: 16px;
+    }
+
+    .creator-stats {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .nav-links {
+        gap: 8px;
+    }
+
+    .nav-link {
+        font-size: 12px;
+        padding: 5px 8px;
     }
 }
 
