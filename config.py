@@ -75,18 +75,18 @@ CREATORS = [
         description="Stock market educator with fundamental analysis approach"
     ),
     Creator(
-        name="Shashank Udupa",
-        channel_id="UC0HTI7Twdo0RdYdqrRG9IIg",
-        channel_url="https://www.youtube.com/@1financebyshashankudupa",
-        slug="shashank",
-        description="1 Finance founder, practical personal finance tips"
+        name="Vivek Bajaj",
+        channel_id="UC4mLxQKmWyaFLGP-KpWsERA",
+        channel_url="https://www.youtube.com/@VivekBajaj",
+        slug="vivekbajaj",
+        description="Co-founder of StockEdge and Elearnmarkets, market expert"
     ),
     Creator(
-        name="FinnovationZ",
-        channel_id="UCCYANsIqGiAn8Gx2Vw6F9Og",
-        channel_url="https://www.youtube.com/@FinnovationZ",
-        slug="finnovationz",
-        description="Stock market analysis and investment education"
+        name="P R Sundar",
+        channel_id="UCbRB2FfKh6HaPLyB9t9q_PQ",
+        channel_url="https://www.youtube.com/@PRSundar",
+        slug="prsundar",
+        description="Options trading expert with decades of experience"
     ),
     Creator(
         name="Asset Yogi",
@@ -96,13 +96,14 @@ CREATORS = [
         description="Personal finance and investment guidance for beginners"
     ),
     Creator(
-        name="Pushkar Raj Thakur",
-        channel_id="UCVt4zCLz8AhFszZUzzBpCuw",
-        channel_url="https://www.youtube.com/@PushkarRajThakur",
-        slug="pushkar",
-        description="Business and investment strategies, known for stock picks"
+        name="Nitin Bhatia",
+        channel_id="UCx3yWBJG41JF0E0ApGvsYeQ",
+        channel_url="https://www.youtube.com/@NitinBhatia14",
+        slug="nitinbhatia",
+        description="Financial planning and real estate investment expert"
     ),
 ]
+
 
 
 def get_creator_by_slug(slug: str) -> Optional[Creator]:
