@@ -402,3 +402,87 @@ def fetch_all_creators(limit_per_creator: int = 50):
     # Fetch transcripts
     print("Fetching transcripts...")
     fetch_transcripts_for_videos(limit=100)
+
+
+def fetch_all_creators_optimized(limit_per_creator: int = 50, score_threshold: int = 50):
+    """
+    Optimized fetch using YouTube API and title classification.
+    
+    This function:
+    1. Uses YouTube Data API v3 for faster metadata fetching (if available)
+    2. Classifies titles with Gemini to skip irrelevant videos
+    3. Only fetches transcripts for high-value videos
+    
+    Args:
+        limit_per_creator: Maximum videos per creator
+        score_threshold: Minimum title score to fetch transcript (0-100)
+    """
+    from youtube_api import get_channel_videos_api, YOUTUBE_API_KEY
+    from title_classifier import filter_videos_by_title
+    
+    db = get_db()
+    
+    for creator in CREATORS:
+        print(f"Fetching videos for {creator.name}...")
+        
+        # Ensure creator is in database
+        db.add_creator(
+            name=creator.name,
+            channel_id=creator.channel_id,
+            channel_url=creator.channel_url,
+            slug=creator.slug,
+            description=creator.description or ""
+        )
+        
+        creator_data = db.get_creator_by_slug(creator.slug)
+        if not creator_data:
+            print(f"  Error: Could not get creator from database")
+            continue
+        
+        # Try YouTube API first (faster), fall back to yt-dlp
+        videos = []
+        if YOUTUBE_API_KEY:
+            print(f"  Using YouTube Data API...")
+            videos = get_channel_videos_api(creator.channel_id, max_results=limit_per_creator)
+        
+        if not videos:
+            print(f"  Falling back to yt-dlp...")
+            videos = get_channel_videos(
+                creator.channel_url, 
+                limit=limit_per_creator,
+                channel_id=creator.channel_id
+            )
+        
+        print(f"  Found {len(videos)} videos")
+        
+        if not videos:
+            continue
+        
+        # Filter by date range
+        videos = filter_by_date_range(videos)
+        print(f"  {len(videos)} videos in date range")
+        
+        # Smart title filtering - skip irrelevant videos
+        print(f"  Classifying titles...")
+        videos = filter_videos_by_title(videos, threshold=score_threshold)
+        
+        # Save videos to database
+        saved_count = 0
+        for video in videos:
+            existing = db.get_video_by_video_id(video['video_id'])
+            if not existing:
+                db.add_video(
+                    creator_id=creator_data['id'],
+                    video_id=video['video_id'],
+                    title=video['title'],
+                    url=video['url'],
+                    publish_date=video.get('upload_date', '')
+                )
+                saved_count += 1
+        
+        print(f"  Saved {saved_count} new videos to database")
+        print()
+    
+    # Fetch transcripts only for high-value videos
+    print("Fetching transcripts for high-value videos...")
+    fetch_transcripts_for_videos(limit=100)

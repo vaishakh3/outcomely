@@ -22,7 +22,9 @@ def cli():
 @click.option('--creator', '-c', help='Creator slug (e.g., akshat, warikoo, rachana)')
 @click.option('--all', 'all_creators', is_flag=True, help='Fetch all configured creators')
 @click.option('--limit', '-l', default=50, help='Max videos per creator')
-def fetch(creator, all_creators, limit):
+@click.option('--optimized', '-o', is_flag=True, help='Use optimized fetch with title classification')
+@click.option('--threshold', '-t', default=50, help='Title score threshold (0-100) for optimized mode')
+def fetch(creator, all_creators, limit, optimized, threshold):
     """Fetch videos and transcripts from YouTube"""
     from youtube_fetcher import fetch_creator_videos, fetch_all_creators, fetch_transcripts_for_videos
     from database import get_db
@@ -34,7 +36,12 @@ def fetch(creator, all_creators, limit):
     
     if all_creators:
         console.print("[bold blue]Fetching videos for all creators...[/]")
-        fetch_all_creators(limit_per_creator=limit)
+        if optimized:
+            from youtube_fetcher import fetch_all_creators_optimized
+            console.print(f"[dim]Using optimized mode (threshold={threshold})[/]")
+            fetch_all_creators_optimized(limit_per_creator=limit, score_threshold=threshold)
+        else:
+            fetch_all_creators(limit_per_creator=limit)
     elif creator:
         console.print(f"[bold blue]Fetching videos for {creator}...[/]")
         fetch_creator_videos(creator, limit=limit)
