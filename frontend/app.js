@@ -1,5 +1,5 @@
 /**
- * Finfluencer Tracker - Frontend JavaScript
+ * Outcomely - Frontend JavaScript
  * Handles API calls and dynamic content rendering
  */
 
@@ -298,7 +298,7 @@ loadCreatorData = async function (slug) {
 
     // Update header
     document.getElementById('creator-name').textContent = creator.name;
-    document.title = `${creator.name} - Finfluencer Tracker`;
+    document.title = `${creator.name} - Outcomely`;
     document.getElementById('creator-description').textContent =
         creator.description || 'Finance YouTuber';
     document.getElementById('creator-channel-link').href = creator.channel_url || '#';

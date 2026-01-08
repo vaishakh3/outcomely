@@ -1,5 +1,5 @@
 /* ===================================
-   Finfluencer Tracker - Design System
+   Outcomely - Design System
    Modern, Premium, Dark Theme
    =================================== */
 
@@ -1618,13 +1618,14 @@ body {
     }
 
     .leaderboard-table tr {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 8px 12px;
         padding: 16px;
         background: var(--bg-card);
         border: 1px solid var(--border-color);
-        border-radius: 12px;
+        border-radius: 16px;
         align-items: center;
     }
 
@@ -1637,55 +1638,47 @@ body {
         border: none;
     }
 
-    /* Rank */
+    /* Rank - top left */
     .leaderboard-table td:nth-child(1) {
-        order: 1;
-        width: 40px;
+        grid-row: 1;
+        grid-column: 1;
     }
 
-    /* Creator Info */
+    /* Creator Info - top center */
     .leaderboard-table td:nth-child(2) {
-        order: 2;
-        flex: 1;
-        min-width: 150px;
+        grid-row: 1;
+        grid-column: 2;
     }
 
-    /* Accuracy */
+    /* Accuracy - top right */
     .leaderboard-table td:nth-child(3) {
-        order: 3;
+        grid-row: 1;
+        grid-column: 3;
         text-align: right;
     }
 
-    /* Predictions count */
+    /* Predictions count - bottom left */
     .leaderboard-table td:nth-child(4) {
-        order: 5;
-        width: 50%;
-        font-size: 13px;
-        color: var(--text-secondary);
+        grid-row: 2;
+        grid-column: 1 / 2;
+        font-size: 12px;
+        color: var(--text-muted);
     }
 
     .leaderboard-table td:nth-child(4)::before {
-        content: 'Predictions: ';
-        color: var(--text-muted);
+        content: '';
     }
 
-    /* Videos count */
+    /* Videos count - hidden on mobile */
     .leaderboard-table td:nth-child(5) {
-        order: 6;
-        width: 50%;
-        font-size: 13px;
-        color: var(--text-secondary);
-        text-align: right;
+        display: none;
     }
 
-    .leaderboard-table td:nth-child(5)::before {
-        content: 'Videos: ';
-        color: var(--text-muted);
-    }
-
-    /* Action button */
+    /* Action button - bottom right */
     .leaderboard-table td:nth-child(6) {
-        order: 4;
+        grid-row: 2;
+        grid-column: 2 / 4;
+        justify-self: end;
     }
 
     .creator-info-cell {
@@ -1693,41 +1686,46 @@ body {
     }
 
     .creator-avatar {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
     }
 
     .creator-name {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .creator-desc {
         font-size: 11px;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
     .accuracy-display {
-        font-size: 18px;
+        font-size: 16px;
+    }
+
+    .accuracy-bar {
+        width: 40px;
     }
 
     .view-btn {
-        padding: 8px 14px;
-        font-size: 12px;
+        padding: 6px 12px;
+        font-size: 11px;
     }
 
-    /* Creator Page */
+    /* Creator Page - Stats side by side */
     .creator-header {
-        padding: 24px 0;
+        padding: 20px 0;
     }
 
     .creator-header-content {
         flex-direction: column;
         text-align: center;
-        gap: 20px;
+        gap: 16px;
     }
 
     .creator-info {
@@ -1736,23 +1734,36 @@ body {
     }
 
     .creator-avatar.large {
-        width: 70px;
-        height: 70px;
-        font-size: 24px;
+        width: 60px;
+        height: 60px;
+        font-size: 22px;
     }
 
     .creator-details h1 {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .creator-stats {
+        display: flex;
+        flex-direction: row;
         justify-content: center;
         gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .creator-stat {
+        min-width: 70px;
+        text-align: center;
     }
 
     .creator-stat-value {
-        font-size: 28px;
+        font-size: 24px;
     }
+
+    .creator-stat-label {
+        font-size: 11px;
+    }
+
 
     /* Predictions Section */
     .predictions-section .section-header {
