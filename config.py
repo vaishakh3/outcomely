@@ -133,7 +133,7 @@ TIMING_TOLERANCE_DAYS = 90  # 3 months tolerance for timing
 
 
 # Gemini Configuration
-GEMINI_MODEL = "models/gemini-2.5-flash"
+GEMINI_MODEL = "models/gemini-2.0-flash-lite"
 GEMINI_TEMP = 0.1
 GEMINI_RATE_LIMIT_RPM = 15  # Requests per minute (for flash-lite)
 GEMINI_RATE_LIMIT_RPD = 1000  # Requests per day (for flash-lite)
